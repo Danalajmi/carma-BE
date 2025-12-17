@@ -34,6 +34,7 @@ const stripToken = (req,res,next) => {
     }
     res.send(201).send({status: 201, message: "Unauthorized Access"})
   } catch (error) {
+    console.log(error)
     res.send(401).send({status: 401, message: "strip token ERR"})
 
   }
@@ -44,7 +45,7 @@ const verifyToken = (req,res,next) => {
 
     let {token} = res.locals
   try{
-    let payload = jwt.verify(token, APPSECRET)
+    let payload = jwt.verify(token, APP_SECRET)
 
     if(payload){
       res.locals.token = payload

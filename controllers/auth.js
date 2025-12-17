@@ -26,13 +26,15 @@ const login = async (req,res) => {
   try {
     const {email , password} = req.body
     const user = await User.findOne({email})
-    
+
     let isMach = await authMiddle.comparePassword(password, user.password_digest)
     if (isMach){
       let payload = {
         id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role,
+        phoneNumber: user.phoneNumber
       }
       let token = authMiddle.createToken(payload)
       return res.status(200).send({ user: payload, token })
@@ -40,20 +42,38 @@ const login = async (req,res) => {
     res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   } catch (error) {
     console.log(error)
-    res.status(401).send({ status: 'Error', msg: 'An error has occurred logging in!' })
+    res.status(401).send({ status: 'Error', msg: 'Login Error' })
   }
 }
 
-const updatePassword = () => {
+const updatePassword = async (req,res) => {
   try {
-
+    const {oldPass, newPass} = req.body
+    let user = await User.findById(req.params.id)
+    let isMach = await authMiddle.comparePassword(oldPass, user.password_digest)
+    if(isMach){
+      let password_digest = await authMiddle.hashPassword(newPass)
+      user = await User.findByIdAndUpdate(req.params.id, {password_digest})
+      let payload = {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        phoneNumber: user.phoneNumber
+      }
+      return res.status(200).send({ status: 'Password Updated!', user: payload })
+    }
+    res.status(401).send({ status: 'Error', msg: 'Old Password did not match!' })
   } catch (error) {
-
+    console.log(error)
   }
 
 }
 
-const checkSession = () => {
+const checkSession = async (req,res) => {
+  const { payload } =  res.locals
+  console.log(res.locals)
+  return res.status(200).send({ status: 'Valid Session', user: payload })
 
 }
 
