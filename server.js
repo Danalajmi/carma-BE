@@ -7,7 +7,10 @@ const mongoose = require("mongoose")
 const methodOverride = require("method-override")
 const morgan = require("morgan")
 
+const authRouter = require('./routes/auth')
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 const port = process.env.PORT || 3000
 
@@ -19,6 +22,7 @@ mongoose.connection.on("connected", () => {
 const response = (req,res) => {
   res.send('<h1> Hello Carma </h1>')
 }
+app.use('/auth', authRouter)
 app.get('/', response)
 
 app.use(methodOverride("_method"))
