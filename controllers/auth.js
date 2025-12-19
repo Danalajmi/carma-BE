@@ -70,16 +70,10 @@ const updatePassword = async (req,res) => {
 
 }
 
-const checkSession = async (req,res) => {
-  const { payload } =  res.locals
-  console.log(res.locals)
-  return res.status(200).send({ status: 'Valid Session', user: payload })
 
-}
 
 module.exports = {
   register,
   login,
-  updatePassword,
-  checkSession
+  updatePassword
 }
