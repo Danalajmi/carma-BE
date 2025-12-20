@@ -1,0 +1,29 @@
+const Garage = require("../models/Garage")
+
+const createGarage = async (req, res) => {
+  console.log("This is CREATE garage")
+}
+
+const getAllGarages = async (req, res) => {
+  console.log("This is GET all garages")
+}
+
+const getGarageById = async (req, res) => {
+  console.log("This is GET garage by id")
+}
+
+const updateGarage = async (req, res) => {
+  console.log("This is UPDATE garage")
+}
+
+const deleteGarage = async (req, res) => {
+  console.log("This is DELETE garage")
+}
+
+module.exports = {
+  getAllGarages,
+  getGarageById,
+  createGarage,
+  updateGarage,
+  deleteGarage,
+}
