@@ -10,3 +10,5 @@ router.delete("/:id", garageController.deleteGarage)
 
 
 module.exports = router
+
+// note to self: make routes protected
