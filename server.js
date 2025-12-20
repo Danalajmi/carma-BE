@@ -8,6 +8,8 @@ const methodOverride = require("method-override")
 const morgan = require("morgan")
 
 const authRouter = require('./routes/auth')
+const garageRouter = require("./routes/garages")
+app.use("/garages", garageRouter)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
