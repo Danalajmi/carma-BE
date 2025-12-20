@@ -1,11 +1,80 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose")
 
-const garageSchema = new mongoose.Schema({
-  name:{type: string, required: true},
-  location:{type: string, required: true},
-  specialization:{type: string,enum: ['paint', 'etc'], required: true},
-  owner: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}
-})
+const garageSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+    },
+    services: {
+      type: String,
+      enum: [
+        "bodywork",
+        "mechanical",
+        "electrical",
+        "hvac",
+        "tyres",
+        "maintenance",
+        "performance",
+        "detailing",
+      ],
+      required: true,
+    },
+    carBrands: {
+      type: String,
+      enum: [
+        "audi",
+        "bmw",
+        "cadillac",
+        "chevrolet",
+        "chery",
+        "chrysler",
+        "dodge",
+        "fiat",
+        "ford",
+        "gmc",
+        "honda",
+        "hyundai",
+        "infiniti",
+        "jaguar",
+        "kia",
+        "land rover",
+        "lexus",
+        "mazda",
+        "mercedes-benz",
+        "mini",
+        "mitsubishi",
+        "nissan",
+        "porsche",
+        "subaru",
+        "tesla",
+        "toyota",
+        "volkswagen",
+        "volvo",
+      ],
+      required: true,
+    },
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
 
-const Garage = mongoose.model('Garage', garageSchema)
+const Garage = mongoose.model("Garage", garageSchema)
 module.exports = Garage
