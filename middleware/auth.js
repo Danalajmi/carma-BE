@@ -14,8 +14,8 @@ const hashPassword = async (pass) => {
 
 // Compare password entered and password stored in the database
 const comparePassword = async (pass, storedPassword) => {
-  let isMach = await bcrypt.compare(pass, storedPassword)
-  return isMach
+  let isMatch = await bcrypt.compare(pass, storedPassword)
+  return isMatch
 }
 
 // Creates a JSON web token to verify users with using a payload
