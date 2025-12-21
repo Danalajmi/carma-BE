@@ -17,20 +17,8 @@ const garageSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    services: {
-      type: String,
-      enum: [
-        "bodywork",
-        "mechanical",
-        "electrical",
-        "hvac",
-        "tyres",
-        "maintenance",
-        "performance",
-        "detailing",
-      ],
-      required: true,
-    },
+    service: {type: mongoose.Schema.Types.ObjectId, ref: 'Service',required: true,},
+
     carBrands: {
       type: String,
       enum: [
