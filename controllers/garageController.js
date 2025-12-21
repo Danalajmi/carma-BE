@@ -1,4 +1,5 @@
 const Garage = require("../models/Garage")
+const Service = require("../models/Service")
 
 const createGarage = async (req, res) => {
   console.log("This is CREATE garage")
@@ -18,6 +19,12 @@ const updateGarage = async (req, res) => {
 
 const deleteGarage = async (req, res) => {
   console.log("This is DELETE garage")
+}
+
+
+const matchGarage = async (req,res) => {
+  let matchedGarages = await GarageService.find({service: req.body}).populate(Garage)
+  
 }
 
 module.exports = {

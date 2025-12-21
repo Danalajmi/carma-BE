@@ -17,7 +17,11 @@ const garageSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    service: {type: mongoose.Schema.Types.ObjectId, ref: 'Service',required: true,},
+    service: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "GarageService",
+      required: true,
+    },
 
     carBrands: {
       type: String,
