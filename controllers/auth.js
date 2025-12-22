@@ -37,6 +37,7 @@ const login = async (req,res) => {
         phoneNumber: user.phoneNumber
       }
       let token = authMiddle.createToken(payload)
+    
       return res.status(200).send({ user: payload, token })
     }
     res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
@@ -63,6 +64,7 @@ const updatePassword = async (req,res) => {
       }
       return res.status(200).send({ status: 'Password Updated!', user: payload })
     }
+
     res.status(401).send({ status: 'Error', msg: 'Old Password did not match!' })
   } catch (error) {
     console.log(error)

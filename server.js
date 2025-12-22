@@ -7,9 +7,10 @@ const mongoose = require("mongoose")
 const methodOverride = require("method-override")
 const morgan = require("morgan")
 
+
+
 const authRouter = require('./routes/auth')
 const garageRouter = require("./routes/garages")
-app.use("/garages", garageRouter)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -26,6 +27,9 @@ const response = (req,res) => {
 }
 app.use('/auth', authRouter)
 app.get('/', response)
+
+app.use("/garages", garageRouter)
+
 
 app.use(methodOverride("_method"))
 app.use(morgan("dev"))
