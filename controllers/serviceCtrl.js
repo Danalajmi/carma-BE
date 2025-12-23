@@ -3,13 +3,13 @@ const Service = require("../models/Service")
 // Create a Service
 const createService = async (req, res) => {
   try {
-    let { type } = req.body
-    let existingService = await Service.exists({ type })
+    let { service } = req.body
+    let existingService = await Service.exists({ service })
     if (existingService) {
       return res.send({ msg: "this service already exists" })
     }
-    let service = await Service.create({ type })
-    res.send(service)
+    let newService = await Service.create({ service })
+    res.send(newService)
   } catch (error) {
     throw error
   }
@@ -34,12 +34,12 @@ const updateService = async (req, res) => {}
 // delete a Service
 const deleteService = async (req, res) => {
   try {
-    let { type } = req.params
-    let service = await Service.findOneAndDelete({ type })
+    let { service } = req.params
+    let oldService = await Service.findOneAndDelete({ service })
     if (!service) {
-      return res.send({ msg: `Couldn't find ${type}` })
+      return res.send({ msg: `Couldn't find ${service}` })
     }
-    res.send({ msg: `${type} Deleted Succesfully!`, service })
+    res.send({ msg: `${service} Deleted Succesfully!`, oldService })
   } catch (error) {
     throw error
   }
