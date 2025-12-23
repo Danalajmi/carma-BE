@@ -45,6 +45,7 @@ const verifyToken = (req, res, next) => {
     let payload = jwt.verify(token, APP_SECRET)
     if (payload) {
       res.locals.token = payload
+
       return next()
     }
     res.send(201).send({ status: 201, message: "Unauthorized Access" })
@@ -57,6 +58,7 @@ const verifyAdmin = (req,res,next) => {
   let { token } = res.locals
   try {
     let payload = jwt.verify(token, APP_SECRET)
+    
     if (payload.role === 'Admin') {
       res.locals.token = payload
       return next()
