@@ -6,6 +6,7 @@ const register = async (req,res) => {
   try {
 
     const { email, password, name, phoneNumber, role } = req.body
+    console.log(role)
   let password_digest = await authMiddle.hashPassword(password)
 
   // Check if there is an admin user or a user with the same email and doesn't allow a second
@@ -20,6 +21,7 @@ const register = async (req,res) => {
     res.status(200).send(user)
   }
   } catch (error) {
+    console.log('role: ', req.body.role)
     console.log(error)
     return res.send('Error Registering user')
   }

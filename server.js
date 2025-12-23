@@ -34,7 +34,7 @@ app.use("/garages", garageRouter)
 app.use("/cars", carRouter)
 app.use('/services', serviceRouter)
 app.get('/', response)
-app.use('/service-reqs',serviceReqRouter)
+app.use('/servicereqs',serviceReqRouter)
 
 
 
