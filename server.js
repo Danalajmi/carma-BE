@@ -9,6 +9,7 @@ const morgan = require("morgan")
 
 const authRouter = require('./routes/auth')
 const garageRouter = require("./routes/garages")
+const serviceReqRouter = require("./routes/serviceRequest")
 app.use("/garages", garageRouter)
 
 app.use(express.json())
@@ -26,6 +27,7 @@ const response = (req,res) => {
 }
 app.use('/auth', authRouter)
 app.get('/', response)
+app.use('/service-reqs',serviceReqRouter)
 
 app.use(methodOverride("_method"))
 app.use(morgan("dev"))
