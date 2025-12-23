@@ -8,7 +8,10 @@ const register = async (req,res) => {
     const { email, password, name, phoneNumber, role } = req.body
   let password_digest = await authMiddle.hashPassword(password)
 
-  let existingUser = await User.exists({email})
+  // Check if there is an admin user or a user with the same email and doesn't allow a second
+  //https://stackoverflow.com/questions/51952982/mongoose-search-for-a-value-in-two-parameters
+  let existingUser = await User.exists({ $or: [{email}, {role:"Admin"}]})
+
 
   if(existingUser){
     return res.status(400).send('A user with that email has already been registered!')
@@ -37,7 +40,7 @@ const login = async (req,res) => {
         phoneNumber: user.phoneNumber
       }
       let token = authMiddle.createToken(payload)
-    
+
       return res.status(200).send({ user: payload, token })
     }
     res.status(401).send({ status: 'Error', msg: 'Unauthorized' })

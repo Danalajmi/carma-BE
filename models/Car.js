@@ -2,7 +2,8 @@ const mongoose = require("mongoose")
 
 const carSchema = new mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  carBrands: [
+  title: {type: String, required: true},
+  carBrand: [
     {
       type: String,
       enum: [

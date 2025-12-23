@@ -26,7 +26,6 @@ const createToken = (payload) => {
 //
 const stripToken = (req, res, next) => {
   try {
-    console.log("strip")
     const token = req.headers["authorization"].split(" ")[1]
     if (token) {
       res.locals.token = token
@@ -54,10 +53,25 @@ const verifyToken = (req, res, next) => {
   }
 }
 
+const verifyAdmin = (req,res,next) => {
+  let { token } = res.locals
+  try {
+    let payload = jwt.verify(token, APP_SECRET)
+    if (payload.role === 'Admin') {
+      res.locals.token = payload
+      return next()
+    }
+    res.send(201).send({ status: 201, message: "Unauthorized Access" })
+  } catch (err) {
+    res.send(401).send({ status: 401, message: "Verify Admin ERR" })
+  }
+}
+
 module.exports = {
   hashPassword,
   comparePassword,
   createToken,
   stripToken,
   verifyToken,
+  verifyAdmin
 }

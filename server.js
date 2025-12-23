@@ -11,6 +11,7 @@ const morgan = require("morgan")
 
 const authRouter = require('./routes/auth')
 const garageRouter = require("./routes/garages")
+const carRouter = require('./routes/cars')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -26,9 +27,10 @@ const response = (req,res) => {
   res.send('<h1> Hello Carma </h1>')
 }
 app.use('/auth', authRouter)
+app.use("/garages", garageRouter)
+app.use("/cars", carRouter)
 app.get('/', response)
 
-app.use("/garages", garageRouter)
 
 
 app.use(methodOverride("_method"))
