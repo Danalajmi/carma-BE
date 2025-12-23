@@ -12,6 +12,7 @@ const morgan = require("morgan")
 const authRouter = require('./routes/auth')
 const garageRouter = require("./routes/garages")
 const carRouter = require('./routes/cars')
+const serviceRouter = require('./routes/service')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -29,6 +30,7 @@ const response = (req,res) => {
 app.use('/auth', authRouter)
 app.use("/garages", garageRouter)
 app.use("/cars", carRouter)
+app.use('/services', serviceRouter)
 app.get('/', response)
 
 
