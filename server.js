@@ -11,6 +11,8 @@ const morgan = require("morgan")
 
 const authRouter = require('./routes/auth')
 const garageRouter = require("./routes/garages")
+const serviceReqRouter = require("./routes/serviceRequest")
+app.use("/garages", garageRouter)
 const carRouter = require('./routes/cars')
 const serviceRouter = require('./routes/service')
 
@@ -32,6 +34,7 @@ app.use("/garages", garageRouter)
 app.use("/cars", carRouter)
 app.use('/services', serviceRouter)
 app.get('/', response)
+app.use('/servicereqs',serviceReqRouter)
 
 
 

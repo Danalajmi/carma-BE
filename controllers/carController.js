@@ -3,12 +3,13 @@ const Car = require("../models/Car")
 // Create a car
 const createCar = async (req, res) => {
   try {
-    let { model, carBrand, title, year } = req.body
+    let { model, carBrand, title, year, make } = req.body
     let owner = res.locals.token.id
     let carInfo = {
       model,
       carBrand,
       title,
+      make,
       year,
       owner,
     }
