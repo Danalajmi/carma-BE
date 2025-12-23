@@ -7,10 +7,14 @@ const mongoose = require("mongoose")
 const methodOverride = require("method-override")
 const morgan = require("morgan")
 
+
+
 const authRouter = require('./routes/auth')
 const garageRouter = require("./routes/garages")
 const serviceReqRouter = require("./routes/serviceRequest")
 app.use("/garages", garageRouter)
+const carRouter = require('./routes/cars')
+const serviceRouter = require('./routes/service')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -26,8 +30,13 @@ const response = (req,res) => {
   res.send('<h1> Hello Carma </h1>')
 }
 app.use('/auth', authRouter)
+app.use("/garages", garageRouter)
+app.use("/cars", carRouter)
+app.use('/services', serviceRouter)
 app.get('/', response)
 app.use('/service-reqs',serviceReqRouter)
+
+
 
 app.use(methodOverride("_method"))
 app.use(morgan("dev"))

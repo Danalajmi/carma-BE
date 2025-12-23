@@ -17,9 +17,13 @@ const garageSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    service: {type: mongoose.Schema.Types.ObjectId, ref: 'Service',required: true,},
+    // service: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "GarageService",
+    //   required: true,
+    // },
 
-    carBrands: {
+    carBrands: [{
       type: String,
       enum: [
         "audi",
@@ -52,7 +56,7 @@ const garageSchema = new mongoose.Schema(
         "volvo",
       ],
       required: true,
-    },
+    }],
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
