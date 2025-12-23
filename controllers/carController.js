@@ -4,4 +4,9 @@ const Car = require('../models/Car')
 
 // Get all cars
 
-//
+// Get one car
+
+// update a car
+
+// delete a car
+
