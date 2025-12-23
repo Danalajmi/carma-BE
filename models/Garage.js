@@ -23,7 +23,7 @@ const garageSchema = new mongoose.Schema(
     //   required: true,
     // },
 
-    carBrands: {
+    carBrands: [{
       type: String,
       enum: [
         "audi",
@@ -56,7 +56,7 @@ const garageSchema = new mongoose.Schema(
         "volvo",
       ],
       required: true,
-    },
+    }],
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
