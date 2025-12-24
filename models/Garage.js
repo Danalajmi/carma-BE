@@ -62,6 +62,10 @@ const garageSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    interest: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'ServiceRequest'
+    }
   },
   {
     timestamps: true,

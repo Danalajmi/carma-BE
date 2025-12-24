@@ -80,7 +80,7 @@ const deleteOne = async (req, res) => {
     if(!myCar){
       return res.send({msg: `Couldn't find ${title}`})
     }
-    res.send({msg: `${title} Deleted Succesfully!`, myCar})
+    res.send({msg: `${title} Deleted Successfully!`, myCar})
   } catch (error) {
     throw error
   }
