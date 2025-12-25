@@ -2,6 +2,7 @@
   "dependencies": {
     "axios": "^1.13.2",
     "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
@@ -14,7 +15,6 @@
   "version": "1.0.0",
   "description": "**Carma** is a web application designed for moments when your car breaks down and you just want to quickly find the *right* repair shop. It connects car owners with suitable garages based on car model and service needs, making the repair process faster and stress-free.",
   "main": "server.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

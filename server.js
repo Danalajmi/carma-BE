@@ -1,6 +1,7 @@
 const dotenv = require("dotenv")
 dotenv.config()
 const express = require("express")
+const cors = require('cors')
 const app = express()
 const mongoose = require("mongoose")
 
@@ -16,6 +17,8 @@ app.use("/garages", garageRouter)
 const carRouter = require('./routes/cars')
 const serviceRouter = require('./routes/service')
 
+
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 

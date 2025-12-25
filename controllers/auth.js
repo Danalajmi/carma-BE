@@ -11,7 +11,7 @@ const register = async (req,res) => {
 
   // Check if there is an admin user or a user with the same email and doesn't allow a second
   //https://stackoverflow.com/questions/51952982/mongoose-search-for-a-value-in-two-parameters
-  let existingUser = await User.exists({ $or: [{email}, {role:"Admin"}]})
+  let existingUser = await User.exists({ email })
 
 
   if(existingUser){

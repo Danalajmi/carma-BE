@@ -1,8 +1,11 @@
 const ServiceRequest = require("../models/ServiceRequest")
 const Car = require("../models/Car")
 const Garage = require("../models/Garage")
+const Service = require('../models/Service')
+
 const getAllServiceReqs = async (req, res) => {
   try {
+    
     let allServiceReqs = await ServiceRequest.find()
     res.send(allServiceReqs)
   } catch (error) {
@@ -18,10 +21,11 @@ const createServiceReq = async (req, res) => {
     let owner = res.locals.token.id
     let title = req.params.title
     let car = await Car.findOne({ owner, title })
+    let service = await Service.findOne({service: req.body.service})
     if (car) {
       const serviceReq = await ServiceRequest.create({
         car: car._id,
-        service: req.body.service,
+        service: service._id,
         description: req.body.description,
         owner: res.locals.token.id,
       })

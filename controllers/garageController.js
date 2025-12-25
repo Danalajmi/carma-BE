@@ -2,12 +2,13 @@ const Garage = require("../models/Garage")
 const Service = require("../models/Service")
 const createGarage = async (req, res) => {
 
+  let service = await Service.findOne({service: req.body.service})
   let garageInfo = {
     name: req.body.name,
     location: req.body.location,
     phone: req.body.phone,
     description: req.body.description,
-    service: req.body.service,
+    service: service._id,
     carBrands: req.body.carBrands,
     owner: res.locals.token.id,
   }

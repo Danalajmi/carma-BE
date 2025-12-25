@@ -17,46 +17,17 @@ const garageSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    services: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Services",
-      required: true,
-    }],
+    services: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Services",
+        required: true,
+      },
+    ],
 
-    carBrands: [{
-      type: String,
-      enum: [
-        "audi",
-        "bmw",
-        "cadillac",
-        "chevrolet",
-        "chery",
-        "chrysler",
-        "dodge",
-        "fiat",
-        "ford",
-        "gmc",
-        "honda",
-        "hyundai",
-        "infiniti",
-        "jaguar",
-        "kia",
-        "land rover",
-        "lexus",
-        "mazda",
-        "mercedes-benz",
-        "mini",
-        "mitsubishi",
-        "nissan",
-        "porsche",
-        "subaru",
-        "tesla",
-        "toyota",
-        "volkswagen",
-        "volvo",
-      ],
-      required: true,
-    }],
+    carBrands: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "CarBrand", required: true },
+    ],
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -64,8 +35,8 @@ const garageSchema = new mongoose.Schema(
     },
     interest: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'ServiceRequest'
-    }
+      ref: "ServiceRequest",
+    },
   },
   {
     timestamps: true,
