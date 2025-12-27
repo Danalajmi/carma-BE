@@ -1,86 +1,92 @@
-const User = require('../models/User')
-const authMiddle = require('../middleware/auth')
+const User = require("../models/User")
+const authMiddle = require("../middleware/auth")
 
-
-const register = async (req,res) => {
+const register = async (req, res) => {
   try {
-
     const { email, password, name, phoneNumber, role } = req.body
-    console.log(role)
-  let password_digest = await authMiddle.hashPassword(password)
 
-  // Check if there is an admin user or a user with the same email and doesn't allow a second
-  //https://stackoverflow.com/questions/51952982/mongoose-search-for-a-value-in-two-parameters
-  let existingUser = await User.exists({ email })
+    let password_digest = await authMiddle.hashPassword(password)
+    let existingUser = await User.exists({ email })
 
-
-  if(existingUser){
-    return res.status(400).send('A user with that email has already been registered!')
-  }else{
-    const user = await User.create({name, email, password_digest, phoneNumber, role})
-    res.status(200).send(user)
-  }
+    if (existingUser) {
+      return res
+        .status(400)
+        .send("A user with that email has already been registered!")
+    } else {
+      const user = await User.create({
+        name,
+        email,
+        password_digest,
+        phoneNumber,
+        role,
+      })
+      res.status(200).send(user)
+    }
   } catch (error) {
-    console.log('role: ', req.body.role)
+    console.log("role: ", req.body.role)
     console.log(error)
-    return res.send('Error Registering user')
+    return res.send("Error Registering user")
   }
 }
 
-const login = async (req,res) => {
+const login = async (req, res) => {
   try {
-    const {email , password} = req.body
-    const user = await User.findOne({email})
+    const { email, password } = req.body
+    const user = await User.findOne({ email })
 
-    let isMach = await authMiddle.comparePassword(password, user.password_digest)
-    if (isMach){
+    let isMach = await authMiddle.comparePassword(
+      password,
+      user.password_digest
+    )
+    if (isMach) {
       let payload = {
         id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
-        phoneNumber: user.phoneNumber
+        phoneNumber: user.phoneNumber,
       }
       let token = authMiddle.createToken(payload)
 
       return res.status(200).send({ user: payload, token })
     }
-    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
+    res.status(401).send({ status: "Error", msg: "Unauthorized" })
   } catch (error) {
     console.log(error)
-    res.status(401).send({ status: 'Error', msg: 'Login Error' })
+    res.status(401).send({ status: "Error", msg: "Login Error" })
   }
 }
 
-const updatePassword = async (req,res) => {
+const updatePassword = async (req, res) => {
   try {
-    const {oldPass, newPass} = req.body
+    const { oldPass, newPass } = req.body
     let user = await User.findById(req.params.id)
     let isMach = await authMiddle.comparePassword(oldPass, user.password_digest)
-    if(isMach){
+    if (isMach) {
       let password_digest = await authMiddle.hashPassword(newPass)
-      user = await User.findByIdAndUpdate(req.params.id, {password_digest})
+      user = await User.findByIdAndUpdate(req.params.id, { password_digest })
       let payload = {
         id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
-        phoneNumber: user.phoneNumber
+        phoneNumber: user.phoneNumber,
       }
-      return res.status(200).send({ status: 'Password Updated!', user: payload })
+      return res
+        .status(200)
+        .send({ status: "Password Updated!", user: payload })
     }
 
-    res.status(401).send({ status: 'Error', msg: 'Old Password did not match!' })
+    res
+      .status(401)
+      .send({ status: "Error", msg: "Old Password did not match!" })
   } catch (error) {
     console.log(error)
   }
-
 }
-
-
 
 module.exports = {
   register,
   login,
-  updatePassword
+  updatePassword,
 }

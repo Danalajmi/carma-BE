@@ -19,19 +19,18 @@ const garageSchema = new mongoose.Schema(
     },
     services: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Services",
-        required: true,
+        type: String,
+        required: false,
       },
     ],
 
     carBrands: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "CarBrand", required: true },
+      { type: String, required: true },
     ],
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      required: false,
     },
     interest: {
       type: mongoose.Schema.Types.ObjectId,
