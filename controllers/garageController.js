@@ -8,7 +8,7 @@ const createGarage = async (req, res) => {
       location: req.body.location,
       phone: req.body.phone,
       description: req.body.description,
-      service: req.body.services,
+      services: req.body.services,
       carBrands: req.body.carBrands,
       owner: res.locals.token.id,
     }

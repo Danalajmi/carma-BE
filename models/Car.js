@@ -5,7 +5,7 @@ const carSchema = new mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   model: { type: String, required: true },
   year: { type: Number, required: true },
-  carBrand: { type: mongoose.Schema.Types.ObjectId, ref:'CarBrand', required: true },
+  carBrand: { type: String, required: true },
   requests: [{ type: mongoose.Schema.Types.ObjectId, ref: "ServiceRequest" }],
 
 })

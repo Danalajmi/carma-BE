@@ -4,15 +4,14 @@ const CarBrand = require("../models/CarBrand")
 // Create a car
 const createCar = async (req, res) => {
   try {
-    let carBrand = await CarBrand.findOne({brand: req.body.carBrand})
+    
 
-    let { model, title, year, make } = req.body
+    let { model, title, year,carBrand } = req.body.carInfo
     let owner = res.locals.token.id
     let carInfo = {
       model,
-      carBrand: carBrand._id,
+      carBrand,
       title,
-      make,
       year,
       owner,
     }

@@ -58,7 +58,7 @@ const verifyAdmin = (req,res,next) => {
   let { token } = res.locals
   try {
     let payload = jwt.verify(token, APP_SECRET)
-    
+
     if (payload.role === 'Admin') {
       res.locals.token = payload
       return next()
@@ -69,11 +69,19 @@ const verifyAdmin = (req,res,next) => {
   }
 }
 
+const checkSession = async (req,res) => {
+  const {payload} = res.locals
+  res.status(200).send(payload)
+  }
+
+
+
 module.exports = {
   hashPassword,
   comparePassword,
   createToken,
   stripToken,
   verifyToken,
-  verifyAdmin
+  verifyAdmin,
+  checkSession
 }
