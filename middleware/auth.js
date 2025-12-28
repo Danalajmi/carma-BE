@@ -70,7 +70,7 @@ const verifyAdmin = (req,res,next) => {
 }
 
 const checkSession = async (req,res) => {
-  const {payload} = res.locals
+  const payload = res.locals.token
   res.status(200).send(payload)
   }
 
