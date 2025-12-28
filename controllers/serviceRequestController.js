@@ -5,7 +5,7 @@ const Service = require('../models/Service')
 
 const getAllServiceReqs = async (req, res) => {
   try {
-    
+
     let allServiceReqs = await ServiceRequest.find()
     res.send(allServiceReqs)
   } catch (error) {
@@ -21,15 +21,15 @@ const createServiceReq = async (req, res) => {
     let owner = res.locals.token.id
     let title = req.params.title
     let car = await Car.findOne({ owner, title })
-    let service = await Service.findOne({service: req.body.service})
+
     if (car) {
       const serviceReq = await ServiceRequest.create({
         car: car._id,
-        service: service._id,
+        service: req.body.service,
         description: req.body.description,
         owner: res.locals.token.id,
       })
-      res.send(serviceReq)
+      return res.send(serviceReq)
     }
     return res.send({ msg: "This car doesn't exist" })
   } catch (error) {
