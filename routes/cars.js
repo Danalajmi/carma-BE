@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const controller = require("../controllers/carController")
-const serviceRequestController = require('../controllers/serviceRequestController')
+const serviceRequestController = require("../controllers/serviceRequestController")
 const middleware = require("../middleware/auth")
 
 router.post(
@@ -25,14 +25,14 @@ router.get(
 )
 
 router.put(
-  "/myCars/:title",
+  "/myCars/:id",
   middleware.stripToken,
   middleware.verifyToken,
   controller.updateCar
 )
 
 router.delete(
-  "/myCars/:title",
+  "/myCars/:id",
   middleware.stripToken,
   middleware.verifyToken,
   controller.deleteOne
@@ -45,10 +45,12 @@ router.post(
   serviceRequestController.createServiceReq
 )
 
-router.get("/:title/reqs",
+router.get(
+  "/:title/reqs",
   middleware.stripToken,
   middleware.verifyToken,
   serviceRequestController.matchService,
-  serviceRequestController.getAllServiceReqs)
+  serviceRequestController.getAllServiceReqs
+)
 
 module.exports = router
