@@ -4,9 +4,7 @@ const CarBrand = require("../models/CarBrand")
 // Create a car
 const createCar = async (req, res) => {
   try {
-
-
-    let { model, title, year,carBrand } = req.body
+    let { model, title, year, carBrand } = req.body
     let owner = res.locals.token.id
     let carInfo = {
       model,
@@ -54,18 +52,18 @@ const getOne = async (req, res) => {
 const updateCar = async (req, res) => {
   try {
     let owner = res.locals.token.id
-    let { title } = req.params
-    let { model, carBrand, year } = req.body
-
-    let carExists = await Car.exists({ owner, title: req.body.title })
-    if (carExists) {
-      return res.send({ msg: "Please choose a different name" })
-    }
+    let { id } = req.params
+    let { model, title, year, carBrand } = req.body
     let myCar = await Car.findOneAndUpdate(
-      { owner, title },
-      { model, carBrand, year, title: req.body.title }
+      { _id: id, owner },
+      { model, carBrand, year, title },
+      { new: true }
     )
-    console.log(myCar)
+
+    if (!myCar) {
+      return res.send({ msg: "Car not found" })
+    }
+
     res.send(myCar)
   } catch (error) {
     throw error
@@ -77,12 +75,15 @@ const updateCar = async (req, res) => {
 const deleteOne = async (req, res) => {
   try {
     let owner = res.locals.token.id
-    let title = req.params.title
-    let myCar = await Car.findOneAndDelete({ owner, title })
-    if(!myCar){
-      return res.send({msg: `Couldn't find ${title}`})
+    let { id } = req.params
+
+    let myCar = await Car.findOneAndDelete({ _id: id, owner })
+
+    if (!myCar) {
+      return res.send({ msg: "Car not found" })
     }
-    res.send({msg: `${title} Deleted Successfully!`, myCar})
+
+    res.send({ msg: `${myCar.title} deleted successfully!`, myCar })
   } catch (error) {
     throw error
   }
