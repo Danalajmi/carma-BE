@@ -6,7 +6,8 @@ const Service = require('../models/Service')
 const getAllServiceReqs = async (req, res) => {
   try {
 
-    let allServiceReqs = await ServiceRequest.find()
+    let allServiceReqs = await ServiceRequest.find().populate('car')
+    // let matchedGarages = await matchService()
     res.send(allServiceReqs)
   } catch (error) {
     throw error
@@ -29,6 +30,7 @@ const createServiceReq = async (req, res) => {
         description: req.body.description,
         owner: res.locals.token.id,
       })
+
       return res.send(serviceReq)
     }
     return res.send({ msg: "This car doesn't exist" })
@@ -52,12 +54,13 @@ const matchService = async (req, res, next) => {
   let owner = res.locals.token.id
   let title = req.params.title
   let car = await Car.findOne({ owner, title })
-  console.log(car)
+
   let garages = await Garage.find({
     carBrands: car.carBrand,
     services: neededService,
   }).populate("services")
-  res.send(garages)
+  console.log(garages)
+
   next()
 }
 module.exports = {

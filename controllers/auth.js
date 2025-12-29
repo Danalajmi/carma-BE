@@ -23,7 +23,7 @@ const register = async (req, res) => {
       res.status(200).send(user)
     }
   } catch (error) {
-    console.log("role: ", req.body.role)
+    
     console.log(error)
     return res.send("Error Registering user")
   }

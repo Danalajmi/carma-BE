@@ -45,10 +45,9 @@ router.post(
   serviceRequestController.createServiceReq
 )
 
-router.get("/:title/reqs",
+router.get("/requests",
   middleware.stripToken,
   middleware.verifyToken,
-  serviceRequestController.matchService,
   serviceRequestController.getAllServiceReqs)
 
 module.exports = router

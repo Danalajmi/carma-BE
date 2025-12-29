@@ -65,7 +65,7 @@ const updateCar = async (req, res) => {
       { owner, title },
       { model, carBrand, year, title: req.body.title }
     )
-    console.log(myCar)
+    
     res.send(myCar)
   } catch (error) {
     throw error
