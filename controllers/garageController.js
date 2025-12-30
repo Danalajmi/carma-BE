@@ -27,9 +27,10 @@ const getAllGarages = async (req, res) => {
 }
 
 const getGarageById = async (req, res) => {
-  let garage = await Garage.findById(req.params.id)
+
+  let garage = await Garage.find({owner: res.locals.token.id})
   res.send(garage)
-  console.log("This is GET garage by id")
+  console.log("This is GET garage by owner id")
 }
 
 const updateGarage = async (req, res) => {

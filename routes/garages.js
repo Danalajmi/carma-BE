@@ -3,7 +3,8 @@ const garageController = require("../controllers/garageController")
 const middleware = require("../middleware/auth")
 
 router.get("/", garageController.getAllGarages)
-router.get("/:id", garageController.getGarageById)
+router.get("/myGarages",middleware.stripToken,
+  middleware.verifyToken, garageController.getGarageById)
 
 router.post(
   "/",
