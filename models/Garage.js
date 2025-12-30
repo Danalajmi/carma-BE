@@ -23,12 +23,12 @@ const garageSchema = new mongoose.Schema(
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: false,
+      required: true,
     },
-    interest: {
+    interest: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "ServiceRequest",
-    },
+    }],
   },
   {
     timestamps: true,

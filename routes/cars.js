@@ -50,4 +50,10 @@ router.get("/requests",
   middleware.verifyToken,
   serviceRequestController.getAllServiceReqs)
 
+
+router.get("/myRequests",
+  middleware.stripToken,
+  middleware.verifyToken,
+  serviceRequestController.getMyServices)
+
 module.exports = router
