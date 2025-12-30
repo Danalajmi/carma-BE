@@ -22,7 +22,6 @@ const getMyServices = async (req, res) => {
   try {
 
     let allServiceReqs = await ServiceRequest.find({owner: res.locals.token.id}).populate("car")
-    
     let mapthru = await Promise.all(
       allServiceReqs.map(async (request) => {
         let matchedGarages = await matchService(request)
